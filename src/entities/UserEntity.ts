@@ -4,9 +4,14 @@ import bcrypt from 'bcryptjs';
 
 @Entity('users')
 export class User {
+
     @PrimaryColumn()
     id: string;
 
+    @BeforeInsert()
+    async insertId(){
+    this.id = uuid();
+    }
     @Column()
     name: string;
 
@@ -24,13 +29,5 @@ export class User {
     async hashPassword(){
         this.password = await bcrypt.hash(this.password, 8);
     }
-    
-    constructor(){
-        if(!this.id){
-            this.id = uuid();
-        }
+
     }
-
-
-
-}
