@@ -17,12 +17,10 @@ export class CreateUsers1645056352309 implements MigrationInterface {
                         {
                             name: "user_type_id",
                             type: "uuid",
-                            isNullable: false
                         },
                         {
                             name: "name",
                             type: "varchar",
-                            isNullable: false,
                         },
                         {
                             name: "email",
@@ -33,7 +31,6 @@ export class CreateUsers1645056352309 implements MigrationInterface {
                         {
                             name: "password",
                             type: "varchar",
-                            isNullable: false,
                         },
                         {
                             name: "created_at",
