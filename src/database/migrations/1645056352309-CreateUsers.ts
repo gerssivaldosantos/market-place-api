@@ -15,14 +15,12 @@ export class CreateUsers1645056352309 implements MigrationInterface {
                             isUnique: true,
                         },
                         {
-                            name: "user_type",
+                            name: "user_type_id",
                             type: "uuid",
-                            isNullable: false
                         },
                         {
                             name: "name",
                             type: "varchar",
-                            isNullable: false,
                         },
                         {
                             name: "email",
@@ -33,7 +31,6 @@ export class CreateUsers1645056352309 implements MigrationInterface {
                         {
                             name: "password",
                             type: "varchar",
-                            isNullable: false,
                         },
                         {
                             name: "created_at",
@@ -50,7 +47,7 @@ export class CreateUsers1645056352309 implements MigrationInterface {
                     foreignKeys: [
                         {
                             name: "fk_user_type",
-                            columnNames: ["user_type"],
+                            columnNames: ["user_type_id"],
                             referencedTableName: "user_types",
                             referencedColumnNames: ["id"],
                         }

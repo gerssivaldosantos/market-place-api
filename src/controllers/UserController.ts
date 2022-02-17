@@ -1,15 +1,17 @@
 import {Response, Request} from 'express';
+import { UserRequest } from '../@types/userRequest';
 import UserService from '../services/UserService';
 
 class UserController{
+    async create(req: Request, res: Response){
+        const user: UserRequest = req.body;
+        const result = await UserService.create(user);
+        res.status(result.status).json(result)
+    }
+
     async getAll(req: Request, res: Response){
-        const users = await UserService.getAll();
-        if (!users){
-            return res.status(500).json({
-                message: "Internal Server Error"
-            });
-        }
-        return res.status(200).json(users);
+        const result = await UserService.getAll();
+       return res.status(result.status).json(result)
     }
 }
 

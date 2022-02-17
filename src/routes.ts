@@ -5,8 +5,16 @@ import UserTypeController from "./controllers/UserTypeController";
 
 const routes = Router();
 
-routes.get('/', (req, res) => { res.send("Hello World!"); });
+/* Users */
 routes.get('/users', UserController.getAll);
+routes.post('/users', UserController.create);
+/* 
+routes.get('/users/:id', UserController.getById);
+routes.put('/users:id', UserController.update);
+routes.delete('/users:id', UserController.delete); */
+
+
+/* User types */
 routes.post('/user_types', UserTypeController.create);
 
 
