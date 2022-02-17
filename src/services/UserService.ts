@@ -24,7 +24,7 @@ class UserService {
             return {
                 status: 500,
                 message: "Internal Server Error",
-                data: err
+                data: err.driverError ?? err
             };
         }
     }
