@@ -13,6 +13,13 @@ class UserController{
         const result = await UserService.getAll();
        return res.status(result.status).json(result)
     }
+
+    async getById(req: Request, res: Response){
+        const id = req.params.id;
+        const result = await UserService.getById(id);
+        return res.status(result.status).json(result)
+        
+    }
 }
 
 export default new UserController();

@@ -48,6 +48,32 @@ class UserService {
 
         }
     }
+
+    async getById(id: string) {
+        try {
+            const repository = getRepository(User);
+            const user = await repository.findOne(id);
+            if (!user) {
+                return {
+                    status: 404,
+                    message: 'User not found',
+                    content: null
+                };
+            }
+            return {
+                status: 200,
+                content: user,
+                message: 'User retrieved successfully',
+            };
+        }
+        catch {
+            return {
+                status: 500,
+                message: 'Internal Server Error',
+                content: null
+            };
+        }
+    }
 }
 
 export default new UserService();
