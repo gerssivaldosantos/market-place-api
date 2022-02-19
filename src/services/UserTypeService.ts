@@ -1,12 +1,12 @@
 import { getRepository } from "typeorm";
 import UserType from "../entities/UserTypeEntity";
 
-class UserTypeService{
-    async create(name: string, description: string, permission_level: number){
-        try{
+class UserTypeService {
+    async create(name: string, description: string, permission_level: number) {
+        try {
             const repository = getRepository(UserType);
-            const exists = await repository.findOne({name});
-            if(exists){
+            const exists = await repository.findOne({ name });
+            if (exists) {
                 return {
                     status: 401,
                     message: "User type already exists",
@@ -25,12 +25,32 @@ class UserTypeService{
                 message: `User Type ${name} created successfully`,
             };
         }
-        catch{
+        catch {
             return {
                 status: 500,
                 message: 'Internal Server Error',
                 content: null
             };
+        }
+    }
+
+    async getAll() {
+        try {
+            const repository = getRepository(UserType);
+            const user_types = await repository.find();
+            return {
+                status: 200,
+                content: user_types,
+                message: 'User Types retrieved successfully',
+            };
+        }
+        catch {
+            return {
+                status: 500,
+                message: 'Internal Server Error',
+                content: null
+            };
+
         }
     }
 }

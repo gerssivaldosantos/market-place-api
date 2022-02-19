@@ -7,6 +7,12 @@ class UserTypeController {
         const result = await UserTypeService.create(name, description, permission_level);
         return res.status(result.status).json(result);
     }
+
+
+    async getAll(req: Request, res: Response) {
+        const result = await UserTypeService.getAll();
+        return res.status(result.status).json(result);
+    }
 }
 
 
