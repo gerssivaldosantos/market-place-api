@@ -15,6 +15,7 @@ class UserService {
                 password
             });
             await repository.save(user);
+            delete user.password;
             return {
                 status: 201,
                 message: "User created successfully",
@@ -92,6 +93,7 @@ class UserService {
             user.user_type_id = user_type_id;
             user.password = password;
             await repository.save(user);
+            delete user.password;
             return {
                 status: 200,
                 message: 'User updated successfully',
