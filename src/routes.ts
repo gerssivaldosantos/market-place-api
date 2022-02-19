@@ -15,6 +15,7 @@ routes.delete('/users:id', UserController.delete); */
 
 
 /* User types */
+routes.get('/user_types', UserTypeController.getAll);
 routes.post('/user_types', UserTypeController.create);
 
 
