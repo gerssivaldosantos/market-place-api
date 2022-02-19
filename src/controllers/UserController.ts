@@ -27,6 +27,12 @@ class UserController {
         const result = await UserService.update(id, user);
         return res.status(result.status).json(result)
     }
+
+    async delete(req: Request, res: Response) {
+        const id = req.params.id;
+        const result = await UserService.delete(id);
+        return res.status(result.status).json(result)
+    }
 }
 
 export default new UserController();

@@ -107,6 +107,34 @@ class UserService {
 
         }
     }
+
+    async delete(id: string) {
+        try {
+            const repository = getRepository(User);
+            const user = await repository.findOne(id);
+            if (!user) {
+                return {
+                    status: 404,
+                    message: 'User not found',
+                    content: null
+                };
+            }
+            await repository.delete(id);
+            return {
+                status: 200,
+                message: 'User deleted successfully',
+                content: null
+            };
+        }
+        catch (err) {
+            return {
+                status: 500,
+                message: 'Internal Server Error',
+                content: err.driverError ?? err
+            };
+
+        }
+    }
 }
 
 export default new UserService();
