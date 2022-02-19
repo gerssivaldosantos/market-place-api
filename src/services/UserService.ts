@@ -31,27 +31,21 @@ class UserService {
 
     async getAll() {
         try {
-            const repository = await getRepository(User)
-            const users = repository.find();
-            if (!users) {
-                return {
-                    status:404,
-                    message: "Users not found",
-                    content: null
-                };
-            }
+            const repository = getRepository(User);
+            const users = await repository.find();
             return {
                 status: 200,
-                message: "Users found",
-                content: users
+                content: users,
+                message: 'Users retrieved successfully',
             };
         }
         catch {
             return {
                 status: 500,
-                message: "Internal Server Error",
+                message: 'Internal Server Error',
                 content: null
             };
+
         }
     }
 }
