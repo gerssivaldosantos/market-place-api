@@ -95,8 +95,9 @@ class UserService {
             if (email) user.email = email;
             if (name) user.name = name;
             if (user_type_id) user.user_type_id = user_type_id;
-            if (password) user.password = password;
-            
+            if (password) {
+                user.password = await bcrypt.hash(password, 8);
+            }
             await repository.save(user);
             delete user.password;
             return {
