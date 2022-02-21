@@ -23,6 +23,12 @@ export class User {
     @Column({select: false})
     password: string;
 
+    @Column()
+    is_validated: boolean;
+
+    @Column()
+    email_token: string;
+
     @CreateDateColumn()
     created_at: Date;
 
