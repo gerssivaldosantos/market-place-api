@@ -7,6 +7,8 @@ export class Order{
     @Column()
     customer_id: string;
     @Column()
+    seller_id: string;
+    @Column()
     product_id: string;
     @Column()
     quantity: number;
