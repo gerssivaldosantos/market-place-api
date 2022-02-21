@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner, TableColumn } from "typeorm";
 export class CreateEmailTokenAndIsValidatedColumnsIntoUser1645460807416 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.addColumns(
+        await queryRunner.addColumns(
             'users',
             [
                 new TableColumn({
@@ -22,7 +22,7 @@ export class CreateEmailTokenAndIsValidatedColumnsIntoUser1645460807416 implemen
 
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.dropColumns('users', ['email_token', 'is_validated'])
+        await queryRunner.dropColumns('users', ['email_token', 'is_validated'])
     }
 
 }
