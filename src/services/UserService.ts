@@ -37,7 +37,11 @@ class UserService {
     async getAll() {
         try {
             const repository = getRepository(User);
-            const users = await repository.find();
+            const users = await repository.find(
+                {
+                    relations: ["user_type"]
+                }
+            );
             return {
                 status: 200,
                 content: users,
@@ -57,7 +61,12 @@ class UserService {
     async getById(id: string) {
         try {
             const repository = getRepository(User);
-            const user = await repository.findOne(id);
+            const user = await repository.find(
+                {   
+                    where: {id: id},
+                    relations: ["user_type"]
+                }
+            );
             if (!user) {
                 return {
                     status: 404,
