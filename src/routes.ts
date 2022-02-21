@@ -1,4 +1,5 @@
 import { Router } from "express";
+import OrderController from "./controllers/OrderController";
 import UserController from "./controllers/UserController";
 import UserTypeController from "./controllers/UserTypeController";
 import RequestValidator from "./middlewares/RequestValidator";
@@ -23,7 +24,11 @@ routes.delete('/users/:id', UserController.delete);
 
 /* User types */
 routes.get('/user_types', UserTypeController.getAll);
+
 routes.post('/user_types', UserTypeController.create);
 
+/* Orders */
+
+routes.get('/orders', OrderController.getAll);
 
 export default routes;
