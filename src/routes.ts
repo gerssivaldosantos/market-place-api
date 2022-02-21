@@ -29,6 +29,7 @@ routes.post('/user_types', UserTypeController.create);
 
 /* Orders */
 
+routes.post('/orders',OrderController.create);
 routes.get('/orders', OrderController.getAll);
 
 export default routes;
