@@ -21,10 +21,4 @@ export class UserRequest{
     @Length(6, 60)
     password: string;
 
-    constructor({name, user_type_id, email, password}){
-        this.name = name;
-        this.user_type_id = user_type_id;
-        this.email = email;
-        this.password = password;
-    }
 }
