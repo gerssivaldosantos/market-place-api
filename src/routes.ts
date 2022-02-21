@@ -1,8 +1,10 @@
 import { Router } from "express";
+import AuthController from "./controllers/AuthController";
 import OrderController from "./controllers/OrderController";
 import UserController from "./controllers/UserController";
 import UserTypeController from "./controllers/UserTypeController";
 import RequestValidator from "./middlewares/RequestValidator";
+import ValidateMiddleware from "./middlewares/ValidateMiddleware";
 /* basic router for hello world */
 
 const routes = Router();
@@ -21,6 +23,15 @@ routes.put('/users/:id',
     UserController.update);
 
 routes.delete('/users/:id', UserController.delete);
+
+/* Authenticate */
+
+routes.post('/auth',
+    RequestValidator.user,
+    ValidateMiddleware.validateEmail,
+    AuthController.authenticate);
+
+routes.get('/validate_email/:email_token', AuthController.activate);
 
 /* User types */
 routes.get('/user_types', UserTypeController.getAll);

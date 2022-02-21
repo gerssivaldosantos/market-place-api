@@ -9,6 +9,8 @@ class UserService {
         try {
             const repository = getRepository(User);
             let { name, user_type_id, email, password } = user_request;
+            const email_token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            const is_validated = false;
             password = await bcrypt.hash(password, 8);
             const id = uuid();
             const user = repository.create({
@@ -16,7 +18,9 @@ class UserService {
                 name,
                 user_type_id,
                 email,
-                password
+                password,
+                email_token,
+                is_validated
             });
             await repository.save(user);
             delete user.password;
