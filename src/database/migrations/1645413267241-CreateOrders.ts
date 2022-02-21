@@ -9,13 +9,13 @@ export class CreateOrders1645413267241 implements MigrationInterface {
                 columns: [
                     {
                         name: 'id',
-                        type: 'varchar',
+                        type: 'uuid',
                         isPrimary: true,
                         isNullable: false,
                     },
                     {
                         name: 'customer_id',
-                        type: 'varchar',
+                        type: 'uuid',
                         isNullable: false
                     },
                     {
