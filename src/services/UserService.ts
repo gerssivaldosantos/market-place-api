@@ -1,20 +1,25 @@
 import { getRepository, Repository } from "typeorm";
-import { UserRequest } from "../@types/userRequest";
+import { UserRequest } from "../@types/UserRequest";
 import { User } from "../entities/UserEntity";
-
+import bcrypt from 'bcryptjs'
+import {v4 as uuid} from 'uuid';
 class UserService {
 
     async create(user_request: UserRequest) {
         try {
             const repository = getRepository(User);
-            const { name, user_type_id, email, password } = user_request;
+            let { name, user_type_id, email, password } = user_request;
+            password = await bcrypt.hash(password, 8);
+            const id = uuid();
             const user = repository.create({
+                id,
                 name,
                 user_type_id,
                 email,
                 password
             });
             await repository.save(user);
+            delete user.password;
             return {
                 status: 201,
                 message: "User created successfully",
@@ -87,11 +92,14 @@ class UserService {
                     content: null
                 };
             }
-            user.email = email;
-            user.name = name;
-            user.user_type_id = user_type_id;
-            user.password = password;
+            if (email) user.email = email;
+            if (name) user.name = name;
+            if (user_type_id) user.user_type_id = user_type_id;
+            if (password) {
+                user.password = await bcrypt.hash(password, 8);
+            }
             await repository.save(user);
+            delete user.password;
             return {
                 status: 200,
                 message: 'User updated successfully',
