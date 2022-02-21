@@ -20,7 +20,7 @@ export class CreateOrders1645413267241 implements MigrationInterface {
                     },
                     {
                         name: 'product_id',
-                        type: 'varchar',
+                        type: 'uuid',
                         isNullable: false
                     },
                     {
