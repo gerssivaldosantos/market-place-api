@@ -5,12 +5,12 @@ import { User } from '../entities/UserEntity';
 
 class AuthController {
     async authenticate(req: Request, res: Response) {
-        
+
         const repository = getRepository(User);
 
         const { email } = req.body;
 
-        const user =  await repository.findOne(email);
+        const user =  await repository.findOne({email});
 
         const secret = process.env.JWT_SECRET_KEY || '';
 
