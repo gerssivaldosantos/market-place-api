@@ -6,7 +6,6 @@ import UserTypeController from "./controllers/UserTypeController";
 import AuthMiddleware from "./middlewares/AuthMiddleware";
 import RequestValidator from "./middlewares/RequestValidator";
 import ValidateMiddleware from "./middlewares/ValidateMiddleware";
-/* basic router for hello world */
 
 const routes = Router();
 
@@ -38,12 +37,14 @@ routes.delete('/users/:id', UserController.delete);
 
 /* Authenticate */
 
+//Auth an user
 routes.post('/auth',
     RequestValidator.user,
     AuthMiddleware.checkCredentials,
     ValidateMiddleware.validateEmail,
     AuthController.authenticate);
 
+//Validate an user email
 routes.get('/validate_email/:email_token', AuthController.activate);
 
 /* User types */
