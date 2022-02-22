@@ -11,11 +11,11 @@ import ValidateMiddleware from "./middlewares/ValidateMiddleware";
 const routes = Router();
 
 /* Users */
-routes.get('/users', 
+routes.get('/users',
     AuthMiddleware.checkToken,
     UserController.getAll);
 
-routes.post('/users', 
+routes.post('/users',
     RequestValidator.user,
     UserController.create);
 
@@ -23,6 +23,7 @@ routes.get('/users/:id', UserController.getById);
 
 routes.put('/users/:id', 
     RequestValidator.user,
+    AuthMiddleware.checkCredentials,
     UserController.update);
 
 routes.delete('/users/:id', UserController.delete);
