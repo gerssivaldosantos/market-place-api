@@ -19,9 +19,11 @@ routes.post('/users',
     RequestValidator.user,
     UserController.create);
 
-routes.get('/users/:id', UserController.getById);
+routes.get('/users/:id',
+    AuthMiddleware.checkToken,
+    UserController.getById);
 
-routes.put('/users/:id', 
+routes.put('/users/:id',
     RequestValidator.user,
     AuthMiddleware.checkCredentials,
     UserController.update);
@@ -45,7 +47,7 @@ routes.post('/user_types', UserTypeController.create);
 
 /* Orders */
 
-routes.post('/orders',OrderController.create);
+routes.post('/orders', OrderController.create);
 routes.get('/orders', OrderController.getAll);
 
 export default routes;
