@@ -11,23 +11,29 @@ import ValidateMiddleware from "./middlewares/ValidateMiddleware";
 const routes = Router();
 
 /* Users */
+
+//Get all users
 routes.get('/users',
     AuthMiddleware.checkToken,
     UserController.getAll);
 
+//Create an User
 routes.post('/users',
     RequestValidator.user,
     UserController.create);
 
+//Get an User
 routes.get('/users/:id',
     AuthMiddleware.checkToken,
     UserController.getById);
 
+//Update an User
 routes.put('/users/:id',
     RequestValidator.user,
     AuthMiddleware.checkCredentials,
     UserController.update);
 
+//Delete an User
 routes.delete('/users/:id', UserController.delete);
 
 /* Authenticate */
