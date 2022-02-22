@@ -53,6 +53,39 @@ class UserTypeService {
 
         }
     }
+
+    async update(id: string, name: string, description: string, permission_level: number) {
+        try {
+            const repository = getRepository(UserType);
+            const user_type = await repository.findOne(id);
+
+            if (!user_type) {
+                return {
+                    status: 404,
+                    message: 'User type not found',
+                    content: null
+                }
+            }
+            if (name) {
+                user_type.name = name;
+            }
+            if (description) {
+                user_type.description = description;
+            }
+
+            if (permission_level) {
+                user_type.permission_level = permission_level;
+            }
+
+        }
+        catch (err) {
+            return {
+                status: 500,
+                message: 'Internal Server Error',
+                content: null
+            };
+        }
+    }
 }
 
 export default new UserTypeService();

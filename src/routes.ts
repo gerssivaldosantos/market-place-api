@@ -48,10 +48,14 @@ routes.post('/auth',
 routes.get('/validate_email/:email_token', AuthController.activate);
 
 /* User types */
+
+//Get all user types
 routes.get('/user_types', UserTypeController.getAll);
 
+//Create an User type
 routes.post('/user_types', UserTypeController.create);
 
+routes.put('/user_types/:id', UserTypeController.update);
 /* Orders */
 
 routes.post('/orders', OrderController.create);
