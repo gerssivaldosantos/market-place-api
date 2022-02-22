@@ -1,31 +1,16 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken'
 import { User } from '../entities/UserEntity';
 
 class AuthController {
     async authenticate(req: Request, res: Response) {
-        const userRepo = getRepository(User);
-        const { email, password } = req.body;
-        const user = await userRepo.
-            createQueryBuilder('user').
-            select().
-            addSelect("user.password").
-            where("user.email = :email", { email }).
-            getOne();
+        
+        const repository = getRepository(User);
 
+        const { email } = req.body;
 
-        if (!user) {
-            {
-                return res.status(401).json({ message: 'User not found' });
-            }
-
-        }
-        const isValidPassword = await bcrypt.compare(password, user.password);
-        if (!isValidPassword) {
-            return res.status(401).json({ message: 'Invalid password' });
-        }
+        const user =  await repository.findOne(email);
 
         const secret = process.env.JWT_SECRET_KEY || '';
 

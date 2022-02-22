@@ -3,6 +3,7 @@ import AuthController from "./controllers/AuthController";
 import OrderController from "./controllers/OrderController";
 import UserController from "./controllers/UserController";
 import UserTypeController from "./controllers/UserTypeController";
+import AuthMiddleware from "./middlewares/AuthMiddleware";
 import RequestValidator from "./middlewares/RequestValidator";
 import ValidateMiddleware from "./middlewares/ValidateMiddleware";
 /* basic router for hello world */
@@ -10,7 +11,9 @@ import ValidateMiddleware from "./middlewares/ValidateMiddleware";
 const routes = Router();
 
 /* Users */
-routes.get('/users', UserController.getAll);
+routes.get('/users', 
+    AuthMiddleware.checkToken,
+    UserController.getAll);
 
 routes.post('/users', 
     RequestValidator.user,
@@ -28,6 +31,7 @@ routes.delete('/users/:id', UserController.delete);
 
 routes.post('/auth',
     RequestValidator.user,
+    AuthMiddleware.checkCredentials,
     ValidateMiddleware.validateEmail,
     AuthController.authenticate);
 
