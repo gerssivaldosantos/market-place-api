@@ -29,7 +29,7 @@ routes.get('/users/:id',
 //Update an User
 routes.put('/users/:id',
     RequestValidator.user,
-    AuthMiddleware.checkCredentials,
+    AuthMiddleware.checkToken,
     UserController.update);
 
 //Delete an User
