@@ -9,6 +9,12 @@ import ValidateMiddleware from "./middlewares/ValidateMiddleware";
 
 const routes = Router();
 
+/* Default route */
+
+routes.get('/', (req, res) => {
+    res.json({ message: 'Hello World' });
+})
+
 /* Users */
 
 //Get all users
