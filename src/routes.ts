@@ -29,13 +29,16 @@ routes.post('/users',
 
 //Get an User
 routes.get('/users/:id',
+    RequestValidator.user,
     AuthMiddleware.checkToken,
+    RequestValidator.isSelfRequest,
     UserController.getById);
 
 //Update an User
 routes.put('/users/:id',
     RequestValidator.user,
     AuthMiddleware.checkToken,
+    RequestValidator.isSelfRequest,
     UserController.update);
 
 //Delete an User
