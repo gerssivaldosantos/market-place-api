@@ -59,7 +59,9 @@ routes.get('/validate_email/:email_token', AuthController.activate);
 routes.get('/user_types', UserTypeController.getAll);
 
 //Create an User type
-routes.post('/user_types', UserTypeController.create);
+routes.post('/user_types', 
+    RequestValidator.isAdmin,
+    UserTypeController.create);
 
 routes.put('/user_types/:id', UserTypeController.update);
 /* Orders */
