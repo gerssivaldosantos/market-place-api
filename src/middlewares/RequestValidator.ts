@@ -1,6 +1,6 @@
 import { validate } from 'class-validator';
 import { UserRequest } from '../@types/UserRequest';
-import { Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { getRepository } from 'typeorm';
 import { User } from '../entities/UserEntity';
 
@@ -20,28 +20,39 @@ class RequestValidator {
         next();
     }
 
+    async isSelfRequest(req: Request, res: Response, next: NextFunction) {
+        const userId = req.userId;
+        const id = req.params.id;
+        if (userId != id) {
+            return res.status(401).json({
+                message: "You do not have permission to modify this user"
+            })
+        }
+        next();
+    }
+
     async isAdmin(req: Request, res: Response, next: NextFunction) {
         const repository = getRepository(User);
-        const {email} = req.body as UserRequest;
+        const { email } = req.body as UserRequest;
         const user = await repository.findOne({
-            where: {email:email},
+            where: { email: email },
             relations: ['user_type']
         })
 
-        if (!user){
+        if (!user) {
             return res.status(404).json({
                 message: 'User not found'
             })
         }
 
-        if (user.user_type.permission_level !== 0){
+        if (user.user_type.permission_level !== 0) {
             return res.status(403).json({
                 message: 'Forbidden'
             })
         }
 
         next();
-       
+
     }
 }
 

@@ -22,13 +22,7 @@ class UserController {
     }
 
     async update(req: Request, res: Response) {
-        const userId = req.userId;
         const id = req.params.id;
-        if (userId != id){
-            return res.status(401).json({
-                message: "You do not have permission to modify this user"
-            })
-        }
         const user: UserRequest = req.body;
         const result = await UserService.update(id, user);
         return res.status(result.status).json(result)
