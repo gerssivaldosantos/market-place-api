@@ -63,7 +63,7 @@ routes.get('/user_types', UserTypeController.getAll);
 
 //Create an User type
 routes.post('/user_types', 
-    RequestValidator.isAdmin,
+    //RequestValidator.isAdmin,
     UserTypeController.create);
 
 routes.put('/user_types/:id', UserTypeController.update);

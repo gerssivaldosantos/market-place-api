@@ -25,9 +25,7 @@ class UserService {
             await repository.save(user);
             delete user.password;
             return {
-                status: 201,
-                message: "User created successfully",
-                data: user
+                status: 204,
             };
         } catch (err) {
             return {
@@ -114,9 +112,7 @@ class UserService {
             await repository.save(user);
             delete user.password;
             return {
-                status: 200,
-                message: 'User updated successfully',
-                content: user
+                status: 204,
             }
         }
         catch (err) {
@@ -142,9 +138,7 @@ class UserService {
             }
             await repository.delete(id);
             return {
-                status: 200,
-                message: 'User deleted successfully',
-                content: null
+                status: 204,
             };
         }
         catch (err) {
