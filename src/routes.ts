@@ -56,6 +56,8 @@ routes.post('/auth',
 //Validate an user email
 routes.get('/validate_email/:email_token', AuthController.activate);
 
+//get user id by token in header authorization
+routes.get('/user', AuthController.getUserByToken);
 /* User types */
 
 //Get all user types
