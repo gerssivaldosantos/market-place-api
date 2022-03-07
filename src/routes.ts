@@ -57,7 +57,9 @@ routes.post('/auth',
 routes.get('/validate_email/:email_token', AuthController.activate);
 
 //get user id by token in header authorization
-routes.get('/user', AuthController.getUserByToken);
+routes.get('/user', 
+    AuthMiddleware.checkToken,
+    AuthController.getUserByToken);
 /* User types */
 
 //Get all user types

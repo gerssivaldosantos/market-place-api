@@ -32,17 +32,8 @@ class AuthController {
     }
 
     async getUserByToken(req: Request, res: Response) {
-        const { authorization } = req.headers;
         try {
-            if (!authorization) {
-                return res.status(401).json({
-                    error: 'Token not provided'
-                })
-            }
-            const token = formatToken(authorization);
-            const secret = process.env.JWT_SECRET_KEY ?? "";
-            const data = jwt.verify(token, secret);
-            const { id } = data as TokenPayload;
+            const id = req.userId;
             const user = await UserService.getById(id);
             return res.json({
                 user
