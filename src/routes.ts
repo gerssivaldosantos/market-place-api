@@ -60,6 +60,10 @@ routes.get('/validate_email/:email_token', AuthController.activate);
 routes.get('/user', 
     AuthMiddleware.checkToken,
     AuthController.getUserByToken);
+
+//call Rescue password by email
+routes.post('/rescue_password', UserController.callRescuePass)
+
 /* User types */
 
 //Get all user types
