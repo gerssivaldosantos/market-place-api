@@ -110,7 +110,6 @@ class UserService {
                 user.password = await bcrypt.hash(password, 8);
             }
             await repository.save(user);
-            delete user.password;
             return {
                 status: 204,
             }
