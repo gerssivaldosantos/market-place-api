@@ -62,7 +62,7 @@ routes.get('/user',
     AuthController.getUserByToken);
 
 //call Rescue password by email
-routes.post('/rescue_password', UserController.callRescuePass)
+routes.post('/rescue_password', AuthController.callRescuePass)
 
 /* User types */
 

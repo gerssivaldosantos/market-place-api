@@ -3,6 +3,7 @@ import { getRepository } from 'typeorm';
 import jwt from 'jsonwebtoken'
 import { User } from '../entities/UserEntity';
 import UserService from '../services/UserService';
+import AuthService from '../services/AuthService';
 
 function formatToken(token: string): string {
     return token.replace('Bearer', '').trim();
@@ -75,6 +76,12 @@ class AuthController {
             })
         }
 
+
+    }
+
+    async callRescuePass(req: Request, res: Response){
+        const emailToken = req.body.email_token;
+        const result = await AuthService.callRescuePassword(emailToken);
 
     }
 }
