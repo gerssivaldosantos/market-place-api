@@ -36,7 +36,12 @@ class AuthController {
         try {
             const id = req.userId;
             const user = await UserService.getById(id);
-            return res.json({
+            if (!user){
+                return res.status(404).json({
+                    message:"User not found"
+                })
+            }
+            return res.status(200).json({
                 user
             });
         }
