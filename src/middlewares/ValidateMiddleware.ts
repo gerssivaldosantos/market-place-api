@@ -36,7 +36,7 @@ class ValidateMiddleware {
                 
 
                 return res.status(400).json({
-                    error: "email is not validated",
+                    error: "this email is not has validated, we will send confirmation link to your email",
                 })
             }
 
