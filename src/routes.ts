@@ -44,7 +44,7 @@ routes.get('/', (req, res) => {
     //Delete an User
     routes.delete('/users/:id', UserController.delete);
 
-    /* Authenticate */
+/* Authenticate */
 
     //Auth an user
     routes.post('/auth',
