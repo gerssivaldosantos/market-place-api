@@ -74,7 +74,8 @@ routes.get('/', (req, res) => {
         UserTypeController.create);
 
     routes.put('/user_types/:id', UserTypeController.update);
-    /* Orders */
+    
+/* Orders */
 
     routes.post('/orders', OrderController.create);
     routes.get('/orders', OrderController.getAll);
