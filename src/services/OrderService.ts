@@ -11,8 +11,15 @@ class OrderService {
             seller_id,
             quantity
         })
-        await repository.save(order);
-        return { status: 200, data: order }
+        try {
+            await repository.save(order);
+            return { status: 200, data: order }
+        }
+        catch(err){
+            return { status: 500, message: err, data: {} }
+        }
+        
+        
     }
 
     async getAll() {
