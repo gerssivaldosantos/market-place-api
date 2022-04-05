@@ -5,6 +5,8 @@ export class Product {
     @PrimaryColumn()
     id: string;
     @Column()
+    name: string
+    @Column()
     description: string
     @Column()
     price: number
