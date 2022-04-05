@@ -1,4 +1,4 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryColumn, BeforeInsert, BeforeUpdate, ManyToOne, JoinColumn} from "typeorm";
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryColumn} from "typeorm";
 
 @Entity('orders')
 export class Order{
