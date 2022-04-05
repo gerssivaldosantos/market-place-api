@@ -1,4 +1,4 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryColumn, BeforeInsert, BeforeUpdate, ManyToOne, JoinColumn} from "typeorm";
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryColumn, BeforeInsert, BeforeUpdate, JoinColumn, OneToOne} from "typeorm";
 
 import UserType from "./UserTypeEntity";
 
@@ -10,7 +10,7 @@ export class User {
     @Column()
     user_type_id: string;
 
-    @ManyToOne(()=> UserType)
+    @OneToOne(()=> UserType)
     @JoinColumn({name:"user_type_id"})
     user_type: UserType;
     
