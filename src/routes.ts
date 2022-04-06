@@ -1,6 +1,7 @@
 import { Router } from "express";
 import AuthController from "./controllers/AuthController";
 import OrderController from "./controllers/OrderController";
+import ProductController from "./controllers/ProductController";
 import UserController from "./controllers/UserController";
 import UserTypeController from "./controllers/UserTypeController";
 import AuthMiddleware from "./middlewares/AuthMiddleware";
@@ -78,6 +79,13 @@ routes.get('/', (req, res) => {
 /* Orders */
 
     routes.post('/orders', OrderController.create);
+    routes.get('/orders/:id', OrderController.getById);
     routes.get('/orders', OrderController.getAll);
+
+/* Products */
+
+    routes.get('/products', ProductController.getAll);
+    routes.get('/products/:id', ProductController.getById);
+    routes.post('/products', ProductController.create);
 
 export default routes;
