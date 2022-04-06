@@ -27,7 +27,11 @@ class OrderService {
 
     async getAll() {
         const repository = getRepository(Order)
-        const orders = await repository.find()
+        const orders = await repository.find(
+            {
+                relations: ["customer","seller", "product"]
+            }
+        )
         return { status: 200, data: orders }
     }
 }
