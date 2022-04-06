@@ -14,6 +14,12 @@ class ProductController {
         const result = await ProductService.create(product);
         return res.status(result.status).json(result)
     }
+
+    async getById(req: Request, res: Response) {
+        const {id} = req.params;
+        const result = await ProductService.getById(id);
+        return res.status(result.status).json(result)
+    }
 }
 
 export default new ProductController();

@@ -52,6 +52,37 @@ class ProductService {
 
         }
     }
+
+    async getById(id: string) {
+        try {
+            const repository = getRepository(Product);
+            const product = await repository.findOne(
+                {
+                    where: {id: id},
+                }
+            );
+            if (!product) {
+                return {
+                    status: 404,
+                    content: null,
+                    message: 'Product not found',
+                };
+            }
+            return {
+                status: 200,
+                content: product,
+                message: 'Product retrieved successfully',
+            };
+        }
+        catch (err) {
+            return {
+                status: 500,
+                message: err,
+                content: null
+            };
+
+        }
+    }
 }
 
 export default new ProductService();
