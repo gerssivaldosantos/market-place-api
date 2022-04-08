@@ -11,7 +11,7 @@ class MyApp {
         this.app = express();
         this.app.use(express.json());
         this.app.use(cors());
-        this.app.use(routes)
+        this.app.use("/api/v1", routes)
     }
 }
 
