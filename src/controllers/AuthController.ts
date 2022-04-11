@@ -28,7 +28,8 @@ class AuthController {
         const token = jwt.sign({ id: user.id }, secret, { expiresIn: '1d' })
 
         return res.status(200).json({
-            token:token
+            id: user.id,
+            token: token
         });
     }
 
