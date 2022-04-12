@@ -78,7 +78,7 @@ class UserService {
             }
             return {
                 status: 200,
-                content: user,
+                content: user[0],
                 message: 'User retrieved successfully',
             };
         }
