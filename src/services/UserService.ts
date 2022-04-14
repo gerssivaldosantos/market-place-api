@@ -28,6 +28,13 @@ class UserService {
                 status: 204,
             };
         } catch (err) {
+            if (err.driverError.code === '23505') {
+                return {
+                    status: 400,
+                    message: 'Email already exists',
+                    content: null
+                };
+            }
             return {
                 status: 500,
                 message: "Internal Server Error",

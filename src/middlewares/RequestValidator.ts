@@ -12,7 +12,7 @@ class RequestValidator {
         const errors = await validate(user_request);
         if (errors.length > 0) {
             return res.status(400).json({
-                message: 'Bad Request',
+                message: 'Invalid data',
                 content: errors[0].constraints ?? null
             });
 
@@ -47,7 +47,7 @@ class RequestValidator {
 
         if (user.user_type.permission_level !== 0) {
             return res.status(403).json({
-                message: 'Forbidden'
+                message: 'Your don`t have permission to modify this user'
             })
         }
 

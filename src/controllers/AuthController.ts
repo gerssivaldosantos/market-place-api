@@ -74,10 +74,7 @@ class AuthController {
             user.is_validated = true;
             await repository.save(user);
 
-            return res.status(200).send(`<h1>Congratulations</h1>
-            <h4>Welcome ${user.name.split(' ')[0]}</h4>
-            <p>Enjoy our platform !!</p>
-            </div>`);
+            return res.status(200).redirect(process.env.CLIENT + '/login/congratulations');
         }
         catch (err) {
             return res.status(500).json({
