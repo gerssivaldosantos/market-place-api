@@ -18,7 +18,7 @@ routes.get('/', (req, res) => {
 
 /* Utility routes */
 
-routes.post('/check_token', AuthMiddleware.checkToken, (req, res) => {
+routes.post('/check-token', AuthMiddleware.checkToken, (req, res) => {
     res.status(201).json({
         message: 'Token is valid'
     })
@@ -63,7 +63,7 @@ routes.post('/check_token', AuthMiddleware.checkToken, (req, res) => {
         AuthController.authenticate);
 
     //Validate an user email
-    routes.get('/validate_email/:email_token', AuthController.activate);
+    routes.get('/validate-email/:email-token', AuthController.activate);
 
     //get user id by token in header authorization
     routes.get('/user', 
@@ -71,18 +71,21 @@ routes.post('/check_token', AuthMiddleware.checkToken, (req, res) => {
         AuthController.getUserByToken);
 
     //call Rescue password by email
-    routes.post('/rescue_password', AuthController.callRescuePass)
+    routes.post('/rescue-password', AuthController.callRescuePass)
+
+    //call change password by token
+    routes.post('/change-password', AuthController.changePassword)
 
 /* User types */
 
     //Get all user types
-    routes.get('/user_types', UserTypeController.getAll);
+    routes.get('/user-types', UserTypeController.getAll);
 
     //Create an User type
-    routes.post('/user_types', 
+    routes.post('/user-types', 
         UserTypeController.create);
 
-    routes.put('/user_types/:id', UserTypeController.update);
+    routes.put('/user-types/:id', UserTypeController.update);
     
 /* Orders */
 

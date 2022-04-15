@@ -86,9 +86,19 @@ class AuthController {
     }
 
     async callRescuePass(req: Request, res: Response){
-        const emailToken = req.body.email_token;
-        const result = await AuthService.callRescuePassword(emailToken);
+        const token = req.body.token;
+        await AuthService.callRescuePassword(token);
+        return res.status(200).json({
+            message: "We have sent you an email to reset your password"
+        })
+    }
 
+    async changePassword(req: Request, res: Response){
+        const { token, password } = req.body;
+        await AuthService.changePassword(token, password);
+        return res.status(200).json({
+            message: "Your password has been changed"
+        })
     }
 }
 
