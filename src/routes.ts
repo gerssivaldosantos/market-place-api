@@ -16,6 +16,14 @@ routes.get('/', (req, res) => {
     res.json({ message: 'Hello World' });
 })
 
+/* Utility routes */
+
+routes.post('/check_token', AuthMiddleware.checkToken, (req, res) => {
+    res.status(201).json({
+        message: 'Token is valid'
+    })
+})
+
 /* Users */
 
     //Get all users

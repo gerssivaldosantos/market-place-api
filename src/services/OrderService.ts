@@ -19,7 +19,7 @@ class OrderService {
             return { status: 200, data: order }
         }
         catch(err){
-            return { status: 500, message: err, data: {} }
+            return { status: 500, message: "An error has ocurred", data: {} }
         }
         
         

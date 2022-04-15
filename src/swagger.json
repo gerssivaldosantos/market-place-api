@@ -157,6 +157,38 @@
                     }
                 }
             }
+        },
+        "/auth": {
+            "post": {
+                "summary": "Auth user",
+                "description": "This auth an user",
+                "tags": [
+                    "auth"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Auth"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Password are incorrect"
+                    },
+                    "404": {
+                        "description": "User Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -186,6 +218,19 @@
                 "type": "array",
                 "items": {
                     "$ref": "#/components/schemas/User"
+                }
+            },
+            "Auth": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "john@noemail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "IlikeSushi@#0!2"
+                    }
                 }
             }
         },
