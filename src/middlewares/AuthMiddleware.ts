@@ -58,8 +58,8 @@ class AuthMiddleware{
         }
        
         catch(err){
-            return res.status(401).json({
-                message: "Unathourized"
+            return res.status(500).json({
+                message: "Has error in token validation",
             })
         }
     }

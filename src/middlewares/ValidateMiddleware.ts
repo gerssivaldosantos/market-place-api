@@ -30,13 +30,13 @@ class ValidateMiddleware {
                     html: `<h1>Email Confirmation</h1>
                         <h2>Hello User</h2>
                         <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
-                        <a href=${process.env.BASE_URL + "/validate_email/" + user.email_token}> Click here</a>
+                        <a href=${process.env.BASE_URL + process.env.SULFIX_URL +  "/validate_email/" + user.email_token}> Click here</a>
                         </div>`,
                   }).catch(err => console.log(err));
                 
 
                 return res.status(400).json({
-                    error: "email is not validated",
+                    message: "this email is not has validated, we will send confirmation link to your email",
                 })
             }
 

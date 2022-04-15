@@ -25,11 +25,16 @@ class UserService {
             await repository.save(user);
             delete user.password;
             return {
-                status: 201,
-                message: "User created successfully",
-                data: user
+                status: 204,
             };
         } catch (err) {
+            if (err.driverError.code === '23505') {
+                return {
+                    status: 400,
+                    message: 'Email already exists',
+                    content: null
+                };
+            }
             return {
                 status: 500,
                 message: "Internal Server Error",
@@ -80,7 +85,7 @@ class UserService {
             }
             return {
                 status: 200,
-                content: user,
+                content: user[0],
                 message: 'User retrieved successfully',
             };
         }
@@ -112,11 +117,8 @@ class UserService {
                 user.password = await bcrypt.hash(password, 8);
             }
             await repository.save(user);
-            delete user.password;
             return {
-                status: 200,
-                message: 'User updated successfully',
-                content: user
+                status: 204,
             }
         }
         catch (err) {
@@ -142,9 +144,7 @@ class UserService {
             }
             await repository.delete(id);
             return {
-                status: 200,
-                message: 'User deleted successfully',
-                content: null
+                status: 204,
             };
         }
         catch (err) {

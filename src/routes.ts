@@ -1,6 +1,7 @@
 import { Router } from "express";
 import AuthController from "./controllers/AuthController";
 import OrderController from "./controllers/OrderController";
+import ProductController from "./controllers/ProductController";
 import UserController from "./controllers/UserController";
 import UserTypeController from "./controllers/UserTypeController";
 import AuthMiddleware from "./middlewares/AuthMiddleware";
@@ -25,59 +26,74 @@ routes.post('/check_token', AuthMiddleware.checkToken, (req, res) => {
 
 /* Users */
 
-//Get all users
-routes.get('/users',
-    AuthMiddleware.checkToken,
-    UserController.getAll);
+    //Get all users
+    routes.get('/users',
+        AuthMiddleware.checkToken,
+        UserController.getAll);
 
-//Create an User
-routes.post('/users',
-    RequestValidator.user,
-    UserController.create);
+    //Create an User
+    routes.post('/users',
+        RequestValidator.user,
+        UserController.create);
 
-//Get an User
-routes.get('/users/:id',
-    RequestValidator.user,
-    AuthMiddleware.checkToken,
-    RequestValidator.isSelfRequest,
-    UserController.getById);
+    //Get an User
+    routes.get('/users/:id',
+        RequestValidator.user,
+        AuthMiddleware.checkToken,
+        RequestValidator.isSelfRequest,
+        UserController.getById);
 
-//Update an User
-routes.put('/users/:id',
-    RequestValidator.user,
-    AuthMiddleware.checkToken,
-    RequestValidator.isSelfRequest,
-    UserController.update);
+    //Update an User
+    routes.put('/users/:id',
+        RequestValidator.user,
+        AuthMiddleware.checkToken,
+        RequestValidator.isSelfRequest,
+        UserController.update);
 
-//Delete an User
-routes.delete('/users/:id', UserController.delete);
+    //Delete an User
+    routes.delete('/users/:id', UserController.delete);
 
 /* Authenticate */
 
-//Auth an user
-routes.post('/auth',
-    RequestValidator.user,
-    AuthMiddleware.checkCredentials,
-    ValidateMiddleware.validateEmail,
-    AuthController.authenticate);
+    //Auth an user
+    routes.post('/auth',
+        RequestValidator.user,
+        AuthMiddleware.checkCredentials,
+        ValidateMiddleware.validateEmail,
+        AuthController.authenticate);
 
-//Validate an user email
-routes.get('/validate_email/:email_token', AuthController.activate);
+    //Validate an user email
+    routes.get('/validate_email/:email_token', AuthController.activate);
+
+    //get user id by token in header authorization
+    routes.get('/user', 
+        AuthMiddleware.checkToken,
+        AuthController.getUserByToken);
+
+    //call Rescue password by email
+    routes.post('/rescue_password', AuthController.callRescuePass)
 
 /* User types */
 
-//Get all user types
-routes.get('/user_types', UserTypeController.getAll);
+    //Get all user types
+    routes.get('/user_types', UserTypeController.getAll);
 
-//Create an User type
-routes.post('/user_types', 
-    RequestValidator.isAdmin,
-    UserTypeController.create);
+    //Create an User type
+    routes.post('/user_types', 
+        UserTypeController.create);
 
-routes.put('/user_types/:id', UserTypeController.update);
+    routes.put('/user_types/:id', UserTypeController.update);
+    
 /* Orders */
 
-routes.post('/orders', OrderController.create);
-routes.get('/orders', OrderController.getAll);
+    routes.post('/orders', OrderController.create);
+    routes.get('/orders/:id', OrderController.getById);
+    routes.get('/orders', OrderController.getAll);
+
+/* Products */
+
+    routes.get('/products', ProductController.getAll);
+    routes.get('/products/:id', ProductController.getById);
+    routes.post('/products', ProductController.create);
 
 export default routes;

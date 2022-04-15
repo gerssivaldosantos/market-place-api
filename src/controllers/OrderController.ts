@@ -13,6 +13,12 @@ class OrderController {
         const result = await OrderService.getAll();
         return res.status(result.status).json(result)
     }
+
+    async getById(req: Request, res: Response) {
+        const {id} = req.params;
+        const result = await OrderService.getById(id);
+        return res.status(result.status).json(result)
+    }
 }
 
 export default new OrderController();

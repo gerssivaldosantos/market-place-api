@@ -1,0 +1,245 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Market Place API",
+        "version": "1.0.0",
+        "description": "Basic example",
+        "termsOfService": "",
+        "contact": {
+            "name": "",
+            "url": "",
+            "email": ""
+        },
+        "license": {
+            "name": "",
+            "url": ""
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8085/api/v1",
+            "description": "Local server version 1"
+        },
+        {
+            "url": "http://heroku.com",
+            "description": "Heroku server version 1"
+        }
+    ],
+    "paths": {
+        "/users": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Get all users",
+                "description": "Get all users",
+                "operationId": "getUsers",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/components/schemas/Users"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a user",
+                "description": "This route can create a user",
+                "tags": [
+                    "users"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Update a user",
+                "description": "This route can update a user",
+                "tags": [
+                    "users"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "404": {
+                        "description": "User Not Found"
+                    }
+                }
+            },
+            "put": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Update a user",
+                "description": "This route can update a user",
+                "tags": [
+                    "users"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "404": {
+                        "description": "User Not Found"
+                    }
+                }
+            }
+        },
+        "/auth": {
+            "post": {
+                "summary": "Auth user",
+                "description": "This auth an user",
+                "tags": [
+                    "auth"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Auth"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Password are incorrect"
+                    },
+                    "404": {
+                        "description": "User Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "john@noemail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "IlikeSushi@#0!2"
+                    },
+                    "user_type_id": {
+                        "type": "string",
+                        "example": "83d99bad-73a6-41c5-a19b-f36cdd1b7d31"
+                    }
+                }
+            },
+            "Users": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/User"
+                }
+            },
+            "Auth": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "john@noemail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "IlikeSushi@#0!2"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
