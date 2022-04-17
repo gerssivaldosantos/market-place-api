@@ -4,7 +4,7 @@ import { User } from '../entities/UserEntity';
 import bcrypt from 'bcryptjs'
 import transport from '../config/main.init';
 class AuthService {
-    async callRescuePassword(email: string) {
+    async rescuePassword(email: string) {
         try {
             const repository = getRepository(User);
             const user = await repository.findOne({ email });
@@ -15,7 +15,8 @@ class AuthService {
                     content: null
                 };
             }
-            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY || '', { expiresIn: '10m' });
+            const emailToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            user.email_token = emailToken;
             await transport.sendMail({
                 from: process.env.MAIL_USER,
                 to: user.email,
@@ -23,7 +24,7 @@ class AuthService {
                 html: `<h1>Email Confirmation</h1>
                     <h2>Hello User</h2>
                     <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
-                    <a href=${process.env.CLIENT + '/change-password/' + token}> Click here</a>
+                    <a href=${process.env.CLIENT + '/login/change-password/' + emailToken}> Click here</a>
                     </div>`,
               }).catch((err:any) => console.log(err));}
         catch (err) {
@@ -34,17 +35,15 @@ class AuthService {
             };
         }
     }
-    async changePassword(token: string, password: string) {
+    async changePassword(emailToken: string, password: string) {
 
         try {
-            const data = jwt.verify(token, process.env.JWT_SECRET_KEY || '');
-            const { id } = data as { id: string };
             const repository = getRepository(User);
-            const user = await repository.findOne({ id });
+            const user = await repository.findOne({ email_token: emailToken });
             if (!user) {
                 return {
                     status: 404,
-                    message: 'User not found',
+                    message: 'Token Not Found',
                     content: null
                 };
             }

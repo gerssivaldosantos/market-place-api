@@ -85,9 +85,9 @@ class AuthController {
 
     }
 
-    async callRescuePass(req: Request, res: Response){
-        const token = req.body.token;
-        await AuthService.callRescuePassword(token);
+    async rescuePassword(req: Request, res: Response){
+        const email = req.body.email;
+        await AuthService.rescuePassword(email);
         return res.status(200).json({
             message: "We have sent you an email to reset your password"
         })
