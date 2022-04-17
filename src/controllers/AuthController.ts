@@ -5,15 +5,6 @@ import { User } from '../entities/UserEntity';
 import UserService from '../services/UserService';
 import AuthService from '../services/AuthService';
 
-function formatToken(token: string): string {
-    return token.replace('Bearer', '').trim();
-}
-
-interface TokenPayload {
-    id: string;
-    iat: number;
-    exp: number;
-}
 class AuthController {
     async authenticate(req: Request, res: Response) {
 
@@ -87,9 +78,9 @@ class AuthController {
 
     async rescuePassword(req: Request, res: Response){
         const email = req.body.email;
-        await AuthService.rescuePassword(email);
-        return res.status(200).json({
-            message: "We have sent you an email to reset your password"
+        const result = await AuthService.rescuePassword(email);
+        return res.status(result.status).json({
+            message: result.message
         })
     }
 
