@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
 import { User } from '../entities/UserEntity';
 import bcrypt from 'bcryptjs'
