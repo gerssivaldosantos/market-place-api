@@ -5,15 +5,6 @@ import { User } from '../entities/UserEntity';
 import UserService from '../services/UserService';
 import AuthService from '../services/AuthService';
 
-function formatToken(token: string): string {
-    return token.replace('Bearer', '').trim();
-}
-
-interface TokenPayload {
-    id: string;
-    iat: number;
-    exp: number;
-}
 class AuthController {
     async authenticate(req: Request, res: Response) {
 
@@ -29,7 +20,8 @@ class AuthController {
 
         return res.status(200).json({
             id: user.id,
-            token: token
+            token: token,
+            message: 'User authenticated successfully'
         });
     }
 
@@ -85,10 +77,20 @@ class AuthController {
 
     }
 
-    async callRescuePass(req: Request, res: Response){
-        const emailToken = req.body.email_token;
-        const result = await AuthService.callRescuePassword(emailToken);
+    async rescuePassword(req: Request, res: Response){
+        const email = req.body.email;
+        const result = await AuthService.rescuePassword(email);
+        return res.status(result.status).json({
+            message: result.message
+        })
+    }
 
+    async changePassword(req: Request, res: Response){
+        const { emailToken, password } = req.body;
+        const result = await AuthService.changePassword(emailToken, password);
+        return res.status(result.status).json({
+            message: result.message
+        })
     }
 }
 

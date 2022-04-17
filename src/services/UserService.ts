@@ -25,7 +25,8 @@ class UserService {
             await repository.save(user);
             delete user.password;
             return {
-                status: 204,
+                status: 201,
+                message: 'User created successfully',
             };
         } catch (err) {
             if (err.driverError.code === '23505') {
@@ -144,7 +145,8 @@ class UserService {
             }
             await repository.delete(id);
             return {
-                status: 204,
+                status: 200,
+                message: 'User deleted successfully',
             };
         }
         catch (err) {
