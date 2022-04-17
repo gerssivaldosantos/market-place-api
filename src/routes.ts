@@ -70,10 +70,10 @@ routes.post('/check-token', AuthMiddleware.checkToken, (req, res) => {
         AuthMiddleware.checkToken,
         AuthController.getUserByToken);
 
-    //call Rescue password by email
+    //Call Rescue password by email
     routes.post('/rescue-password', AuthController.rescuePassword)
 
-    //call change password by token
+    //Change password by token
     routes.post('/change-password', AuthController.changePassword)
 
 /* User types */
