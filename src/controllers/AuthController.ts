@@ -20,7 +20,8 @@ class AuthController {
 
         return res.status(200).json({
             id: user.id,
-            token: token
+            token: token,
+            message: 'User authenticated successfully'
         });
     }
 
