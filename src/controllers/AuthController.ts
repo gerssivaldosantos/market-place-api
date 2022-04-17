@@ -85,10 +85,10 @@ class AuthController {
     }
 
     async changePassword(req: Request, res: Response){
-        const { token, password } = req.body;
-        await AuthService.changePassword(token, password);
-        return res.status(200).json({
-            message: "Your password has been changed"
+        const { emailToken, password } = req.body;
+        const result = await AuthService.changePassword(emailToken, password);
+        return res.status(result.status).json({
+            message: result.message
         })
     }
 }

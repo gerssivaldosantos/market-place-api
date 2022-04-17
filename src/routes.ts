@@ -63,7 +63,7 @@ routes.post('/check-token', AuthMiddleware.checkToken, (req, res) => {
         AuthController.authenticate);
 
     //Validate an user email
-    routes.get('/validate-email/:email-token', AuthController.activate);
+    routes.get('/validate-email/:email_token', AuthController.activate);
 
     //get user id by token in header authorization
     routes.get('/user', 

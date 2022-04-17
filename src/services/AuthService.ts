@@ -19,13 +19,19 @@ class AuthService {
             await transport.sendMail({
                 from: process.env.MAIL_USER,
                 to: user.email,
-                subject: "Please confirm your account",
-                html: `<h1>Email Confirmation</h1>
+                subject: "Recover Password",
+                html: `<h1>Reset your password</h1>
                     <h2>Hello User</h2>
-                    <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
+                    <p>The password can be changed in page following the link below</p>
                     <a href=${process.env.CLIENT + '/login/change-password/' + emailToken}> Click here</a>
                     </div>`,
-              }).catch((err:any) => console.log(err));}
+              }).catch((err:any) => console.log(err));
+            return {
+                status: 200,
+                message: 'Email sent',
+                content: null
+            }
+            }
         catch (err) {
             return {
                 status: 500,
@@ -48,6 +54,11 @@ class AuthService {
             }
             user.password = await bcrypt.hash(password, 8);
             await repository.save(user);
+            return {
+                status: 200,
+                message: 'Password Changed',
+                content: null
+            };
         }
         catch (err) {
             return {
