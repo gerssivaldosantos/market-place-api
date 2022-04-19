@@ -189,7 +189,140 @@
                     }
                 }
             }
+        },
+        "/products": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Get all products",
+                "description": "Get all products",
+                "operationId": "getProducts",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/components/schemas/Products"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Products not found"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a product",
+                "description": "This route can create a product",
+                "tags": [
+                    "products"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Product"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },     
+        "/products/{id}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "product ID",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Update a user",
+                "description": "This route can get a product",
+                "tags": [
+                    "products"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/components/schemas/Product"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "404": {
+                        "description": "Product Not Found"
+                    }
+                }
+            },
+            "put": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product ID",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Update a user",
+                "description": "This route can update a product",
+                "tags": [
+                    "products"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Product"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "404": {
+                        "description": "Product Not Found"
+                    }
+                }
+            }
         }
+
     },
     "components": {
         "schemas": {
@@ -218,6 +351,29 @@
                 "type": "array",
                 "items": {
                     "$ref": "#/components/schemas/User"
+                }
+            },
+            "Product": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Notebook"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Alienware, 16gb ddr4 RTX3070"
+                    },
+                    "price": {
+                        "type": "number",
+                        "example": 6749.99
+                    }
+                }
+            },
+            "Products": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Product"
                 }
             },
             "Auth": {
