@@ -245,7 +245,7 @@
                     }
                 }
             }
-        },     
+        },
         "/products/{id}": {
             "get": {
                 "parameters": [
@@ -321,8 +321,139 @@
                     }
                 }
             }
+        },
+        "/orders": {
+            "get": {
+                "tags": [
+                    "orders"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Get all orders",
+                "description": "Get all orders",
+                "operationId": "getOrders",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/components/schemas/Order"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Products not found"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a order",
+                "description": "This route can create a order",
+                "tags": [
+                    "orders"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Product"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/orders/{id}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Order ID",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Update a user",
+                "description": "This route can get a product",
+                "tags": [
+                    "orders"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/components/schemas/Product"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "404": {
+                        "description": "Product Not Found"
+                    }
+                }
+            },
+            "put": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Order ID",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Update a order",
+                "description": "This route can update a order",
+                "tags": [
+                    "orders"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Order"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "404": {
+                        "description": "Product Not Found"
+                    }
+                }
+            }
         }
-
     },
     "components": {
         "schemas": {
@@ -374,28 +505,62 @@
                 "type": "array",
                 "items": {
                     "$ref": "#/components/schemas/Product"
-                }
-            },
-            "Auth": {
+                },
+            "Orders": {
                 "type": "object",
                 "properties": {
-                    "email": {
+                    "customer_id": {
                         "type": "string",
-                        "example": "john@noemail.com"
+                        "example": "029d6224-0c02-4215-b0e9-71dbe7c7177c"
                     },
-                    "password": {
+                    "seller_id": {
                         "type": "string",
-                        "example": "IlikeSushi@#0!2"
+                        "example": "701c6bfb-90d9-4726-af72-918a5719b529"
+                    },
+                    "product_id": {
+                        "type": "string",
+                        "example": "fc582398-7107-4ff2-8cf6-596c2d9c4305"
+                    },
+                    "quantity": {
+                        "type": "number",
+                        "example": 1
+                    },
+                    "paid": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "active": {
+                        "type": "boolean",
+                        "example": true
                     }
                 }
-            }
-        },
-        "securitySchemes": {
-            "bearerAuth": {
-                "type": "http",
-                "scheme": "bearer",
-                "bearerFormat": "JWT"
+            },
+            "Products": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Order"
+                }
+                },
+                "Auth": {
+                    "type": "object",
+                    "properties": {
+                        "email": {
+                            "type": "string",
+                            "example": "john@noemail.com"
+                        },
+                        "password": {
+                            "type": "string",
+                            "example": "IlikeSushi@#0!2"
+                        }
+                    }
+                }
+            },
+            "securitySchemes": {
+                "bearerAuth": {
+                    "type": "http",
+                    "scheme": "bearer",
+                    "bearerFormat": "JWT"
+                }
             }
         }
-    }
-}
+    }}
