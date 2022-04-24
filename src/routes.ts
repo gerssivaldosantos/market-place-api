@@ -98,5 +98,6 @@ routes.post('/check-token', AuthMiddleware.checkToken, (req, res) => {
     routes.get('/products', ProductController.getAll);
     routes.get('/products/:id', ProductController.getById);
     routes.post('/products', ProductController.create);
+    routes.delete('/products', ProductController.deleteBulk)
 
 export default routes;
