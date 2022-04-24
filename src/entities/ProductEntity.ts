@@ -10,6 +10,8 @@ export class Product {
     description: string
     @Column()
     price: number
+    @Column()
+    owner_id: string
     @CreateDateColumn({name: 'created_at'})
     createdAt: Date; 
     @UpdateDateColumn({name: 'updated_at'})

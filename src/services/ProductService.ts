@@ -27,14 +27,15 @@ class ProductService {
     async create(product: ProductRequest) {
         try {
             const repository = getRepository(Product);
-            const { name, description, price } = product;
+            const { name, description, price, owner_id } = product;
             const id = uuid()
             const newProduct = await repository.save(
                 {
                     id,
                     name,
                     description,
-                    price
+                    price,
+                    owner_id
                 }
             );
             return {
