@@ -31,6 +31,12 @@ class RequestValidator {
         next();
     }
 
+    async isProductOwner(req: Request, res: Response, next: NextFunction) {
+        const userId = req.userId;
+        /* Logic here */
+        next();
+    }
+
     async isAdmin(req: Request, res: Response, next: NextFunction) {
         const repository = getRepository(User);
         const { email } = req.body as UserRequest;

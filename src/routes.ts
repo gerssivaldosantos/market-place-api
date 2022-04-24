@@ -100,6 +100,8 @@ routes.get('/', (req, res) => {
     routes.get('/products', ProductController.getAll);
     routes.get('/products/:id', ProductController.getById);
     routes.post('/products', ProductController.create);
-    routes.delete('/products', ProductController.deleteBulk)
+    routes.delete('/products',
+    RequestValidator.isProductOwner,
+    ProductController.deleteBulk)
 
 export default routes;
