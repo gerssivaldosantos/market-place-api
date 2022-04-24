@@ -71,7 +71,7 @@ class UserService {
     async getById(id: string) {
         try {
             const repository = getRepository(User);
-            const user = await repository.find(
+            const user = await repository.findOne(
                 {   
                     where: {id: id},
                     relations: ["user_type"]
@@ -86,7 +86,7 @@ class UserService {
             }
             return {
                 status: 200,
-                content: user[0],
+                content: user,
                 message: 'User retrieved successfully',
             };
         }

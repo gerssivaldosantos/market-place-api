@@ -18,16 +18,11 @@ routes.get('/', (req, res) => {
 
 /* Utility routes */
 
-routes.post('/check-token', AuthMiddleware.checkToken, (req, res) => {
-    res.status(201).json({
-        message: 'Token is valid'
-    })
-})
 
 /* Users */
 
     //Get all users
-    routes.get('/users',
+    routes.get('/users/all',
         AuthMiddleware.checkToken,
         UserController.getAll);
 
@@ -61,12 +56,19 @@ routes.post('/check-token', AuthMiddleware.checkToken, (req, res) => {
         AuthMiddleware.checkCredentials,
         ValidateMiddleware.validateEmail,
         AuthController.authenticate);
+    
+    
+    routes.get('/auth/check-token', AuthMiddleware.checkToken, (req, res) => {
+        res.status(201).json({
+            message: 'Token is valid'
+        })
+    })
 
     //Validate an user email
     routes.get('/validate-email/:email_token', AuthController.activate);
 
     //get user id by token in header authorization
-    routes.get('/user', 
+    routes.get('/users', 
         AuthMiddleware.checkToken,
         AuthController.getUserByToken);
 

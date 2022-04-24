@@ -28,15 +28,13 @@ class AuthController {
     async getUserByToken(req: Request, res: Response) {
         try {
             const id = req.userId;
-            const user = await UserService.getById(id);
-            if (!user){
+            const result = await UserService.getById(id);
+            if (!result){
                 return res.status(404).json({
                     message:"User not found"
                 })
             }
-            return res.status(200).json({
-                user
-            });
+            return res.status(result.status).json(result);
         }
 
         catch (err) {
