@@ -1,7 +1,7 @@
-import { getRepository } from "typeorm";
+import { getConnection, getRepository } from "typeorm";
 import { ProductRequest } from "../@types/ProductRequest";
 import { Product } from "../entities/ProductEntity";
-import {v4 as uuid} from 'uuid'
+import { v4 as uuid } from 'uuid'
 
 class ProductService {
     async getAll() {
@@ -58,7 +58,7 @@ class ProductService {
             const repository = getRepository(Product);
             const product = await repository.findOne(
                 {
-                    where: {id: id},
+                    where: { id: id },
                 }
             );
             if (!product) {
@@ -83,6 +83,28 @@ class ProductService {
 
         }
     }
+
+    async bulkDelete(ids: Record<string,string[]>) {
+        const productRepository = getRepository(Product)
+        const productIds = Object.values(ids)
+        const products = await productRepository.findByIds(productIds)
+        try {
+            await productRepository.remove(products)
+            return {
+                status: 200,
+                content: null,
+                message: 'Products deleted successfully',
+            }
+        }
+        catch (err) {
+            return {
+                status: 500,
+                message: err,
+                content: null
+            };
+        }
+    }
+
 }
 
 export default new ProductService();

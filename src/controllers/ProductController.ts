@@ -20,6 +20,12 @@ class ProductController {
         const result = await ProductService.getById(id);
         return res.status(result.status).json(result)
     }
+
+    async deleteBulk(req: Request, res: Response) {
+        const { ids } = req.body 
+        const result = await ProductService.bulkDelete(ids)
+        return res.status(result.status).json(result)
+    }
 }
 
 export default new ProductController();
