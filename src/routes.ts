@@ -16,9 +16,6 @@ routes.get('/', (req, res) => {
     res.json({ message: 'Hello World' });
 })
 
-/* Utility routes */
-
-
 /* Users */
 
     //Get all users
@@ -103,5 +100,11 @@ routes.get('/', (req, res) => {
     routes.delete('/products',
     RequestValidator.isProductOwner,
     ProductController.deleteBulk)
+
+/* Shopping Cart */
+
+    routes.get('/shopping-cart', AuthMiddleware.checkToken, ProductController.getShoppingCart);
+    /* routes.post('/shopping-cart', AuthMiddleware.checkToken, ProductController.addToShoppingCart);
+    routes.delete('/shopping-cart', AuthMiddleware.checkToken, ProductController.removeFromShoppingCart); */
 
 export default routes;

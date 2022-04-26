@@ -2,6 +2,7 @@ import { getConnection, getRepository } from "typeorm";
 import { ProductRequest } from "../@types/ProductRequest";
 import { Product } from "../entities/ProductEntity";
 import { v4 as uuid } from 'uuid'
+import { ShoppingCart } from "../entities/ShoppingCartEntity";
 
 class ProductService {
     async getAll() {
@@ -103,6 +104,20 @@ class ProductService {
                 message: err,
                 content: null
             };
+        }
+    }
+
+    async getShoppingCart(userId: string) {
+        const shoppingCartRepository = getRepository(ShoppingCart)
+        const shoppingCart = await shoppingCartRepository.find({
+            where: { user_id: userId },
+            relations: ['product']
+        })
+        const products = shoppingCart.map((item:any) => item.product)
+        return {
+            status: 200,
+            content: products,
+            message: 'Products retrieved successfully',
         }
     }
 

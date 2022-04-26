@@ -26,6 +26,12 @@ class ProductController {
         const result = await ProductService.bulkDelete(ids)
         return res.status(result.status).json(result)
     }
+
+    async getShoppingCart(req: Request, res: Response) {
+        const { userId } = req.body;
+        const result = await ProductService.getShoppingCart(userId);
+        return res.status(result.status).json(result)
+    }
 }
 
 export default new ProductController();
