@@ -10,7 +10,7 @@ export class Product {
     description: string
     @Column()
     price: number
-    @Column()
+    @Column({ type: "bytea", nullable: false })
     image: Buffer
     @Column()
     owner_id: string
