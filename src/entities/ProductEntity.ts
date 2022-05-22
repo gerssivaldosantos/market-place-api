@@ -11,6 +11,8 @@ export class Product {
     @Column()
     price: number
     @Column()
+    image: Buffer
+    @Column()
     owner_id: string
     @CreateDateColumn({name: 'created_at'})
     createdAt: Date; 
