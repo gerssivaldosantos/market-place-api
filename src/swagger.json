@@ -453,6 +453,62 @@
                     }
                 }
             }
+        },
+        "/user-types": {
+            "get": {
+                "tags": [
+                    "user types"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Get all user types",
+                "description": "Get all user types",
+                "operationId": "getUserTypes",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/components/schemas/UserTypes"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    },
+                    "404": {
+                        "description": "Route not found"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a user type",
+                "description": "This route can create a user type",
+                "tags": [
+                    "user types"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserType"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -505,8 +561,22 @@
                 "type": "array",
                 "items": {
                     "$ref": "#/components/schemas/Product"
-                },
-            "Orders": {
+                }
+            },
+            "Auth": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "john@noemail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "IlikeSushi@#0!2"
+                    }
+                }
+            },
+            "Order": {
                 "type": "object",
                 "properties": {
                     "customer_id": {
@@ -535,32 +605,42 @@
                     }
                 }
             },
-            "Products": {
+            "Orders": {
                 "type": "array",
                 "items": {
                     "$ref": "#/components/schemas/Order"
                 }
-                },
-                "Auth": {
-                    "type": "object",
-                    "properties": {
-                        "email": {
-                            "type": "string",
-                            "example": "john@noemail.com"
-                        },
-                        "password": {
-                            "type": "string",
-                            "example": "IlikeSushi@#0!2"
-                        }
+            },
+            "UserType": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Admin"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "All Access of system"
+                    },
+                    "permission_level": {
+                        "type": "number",
+                        "example": 0
                     }
                 }
             },
-            "securitySchemes": {
-                "bearerAuth": {
-                    "type": "http",
-                    "scheme": "bearer",
-                    "bearerFormat": "JWT"
+            "UserTypes": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/UserType"
                 }
             }
         }
-    }}
+    },
+    "securitySchemes": {
+        "bearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+        }
+    }
+}
